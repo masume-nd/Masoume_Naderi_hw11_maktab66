@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+*{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+}
+:root {
+  
+  /* Light theme */
+  --bright-blue:#000220;
+  --check-gradieant: linear-gradient(#57DDFF, #C058F3);
+  --very-light-grey: #FAFAFA;
+  --Very-Light-Grayish-Blue: #FFFFFF;
+  --ight-grayish-blue: #D2D3DB;
+  --dark-grayish-blue: #9394A5;
+  --very-dark-grayish-blue: #484B6A;
+  --heading: #ffffff;
+  --border-color: #F5F5F8;
+
+  --Very-Dark-Blue: #181824;
+  --Very-Dark-Desaturated-Blue: #24273C;
+  --Light-Grayish-Blue: #CACDE8;
+  --Light-Grayish-Blue : #E4E5F1;
+  --Dark-Grayish-Blue: #777A92;
+  --Very-Dark-Grayish-Blue: #4D5066;
+  --Very-Dark-Grayish-Blue: #393A4C;
+
+  --blue-text: #1D86D5;
+  --bg-mobile-light: url("./img/bg-desktop-light.jpg");
+  --bg-desktop-light: url("img/bg-desktop-dark.jpg");
+  --theme-icon-light: url("img/moon-fill.svg");
+  --check-icon: url("img/icon-check.svg");
+  --bg-mobile-dark: url("img/bg-mobile-dark.jpg");
+  --bg-desktop-dark: url("img/bg-mobile-light.jpg");
+
+
+}
+
+
+.dark {
+  --bright-blue:#000220;
+  --check-gradieant: linear-gradient(#57DDFF, #C058F3);
+  --background:var(--Very-Dark-Blue);
+  --list-background: var(--Very-Dark-Desaturated-Blue);
+  --header-img:var(--bg-desktop-dark);
+  --theme-icon:var(--theme-icon-dark);
+  --header-img-mobile:var(--bg-mobile-dark);
+  --text:var(--dark-grayish-blue);
+  --text-completed:var(--very-dark-grayish-blue);
+  --text-hover:var(--Light-Grayish-Blue);
+
+}
+
+.light {
+  --bright-blue:#000220;
+  --check-gradieant: linear-gradient(#57DDFF, #C058F3);
+  --background: var(--very-light-grey);
+  --list-background: var(--Very-Light-Grayish-Blue);
+  --header-img:var(--bg-desktop-light);
+  --theme-icon:var(--theme-icon-light);
+  --header-img-mobile:var(--bg-mobile-light);
+  --text:var(--very-dark-grayish-blue);
+  --text-completed: var(--dark-grayish-blue);
+  --text-hover: var(--very-dark-grayish-blue);
+
+}
+body{
+  margin: 0;
+  padding: 0; 
+}
+.bg-image{
+  height:50vh;
+  background-image: url(./img/bg-desktop-light.jpg);
+  background-repeat: no-repeat;
+}
+img{
+  width: 100vw;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#clear{
+  transform: translate(375px,-300px);
+}
+
+#tasks-input{
+  width: 450px;
+  padding: 12px 20px;
+  border: 1px solid white;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transform: translateY(-220px);
+  
+}
+.themeSwitch {
+  transform: translate(410px,-235px);
+}
+
+.themeSwitch-label {
+  cursor: pointer;
+  background-image: url("img/brightness-high.svg");
+  height: 26px;
+  width: 26px;
+  transition: background 2s;
+}
+input{
+  border: white 1px solid;
+  padding: 10px;
+}
+.task{
+  display: flex;
+  justify-content: space-between;
+  width: 450px;
+  padding: 12px 20px;
+  border: white solid 1px;
+  border-bottom: rgb(194, 194, 194) solid 1px;
+  box-sizing: border-box;
+  transform: translateY(-220px);
+  box-shadow: 1px 5px 10px -6px rgb(67, 67, 67);
+  background-color: white;
+}
+ul{
+  list-style-type: none;
+  padding: 12px 20px;
+}
+.task label input{
+  border:white silid 1px;
+  
+}
+h2{
+  font-size: xx-large;
+  color: white;
+  transform: translateY(-200px);
+  margin-left: 3vw;
+}
+.lineThrough{
+  text-decoration: line-through;
+  color : #ccc;
+}
+
+.uncheck-circle{
+  font-size: xx-large;
+}
+.check-circle{
+  height: 16px;
+  border-radius: 50%;
+  margin-bottom: -5px;
+  padding: 4px;
+  color: white;
+  background-image:linear-gradient(to right ,rgb(93, 236, 255),rgb(164, 94, 192));
+}
+main{
+  margin-top: 1.5rem;
+}
+section{
+  margin-right: 20px;
+}
+.action{
+  position: relative;
+  width: 100px;
+}
+.action .delete{
+  position: absolute;
+  border: none;
+  display: block;
+  width: 25px;
+  height: 15px;
+  line-height: 16px;
+  font-size: 30px;
+  bottom: 4px;
+  background-color: white;
+  left: 345px;
+  cursor: pointer;
+  transition: .1s;
+}
+.footer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: rgb(121, 117, 117);
+  box-shadow: 1px 5px 10px -6px rgb(67, 67, 67);
+  padding: 20px 0;
+  width: 450px;
+  margin-left: 20px;
+  transform: translateY(-220px);
+}
+.middleUl{
+  display: flex;
+  margin: 0;
+}
+.middleUl li{
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width:480px) {
+  
+#tasks-input{
+  width: 300px;  
+}
+.footer{
+  width: 320px;
+  position: relative;
+}
+
+.middleUl{
+ 
+  position: absolute;
+  top: 100%;
+}
+
+}
+@media screen and (max-width:350px) {
+  .bg-image{
+    background-image: url(./img/bg-mobile-light.jpg);
+  }
+  #tasks-input , h2{
+    transform: translateY(-300px);
+    
+  }
+}
