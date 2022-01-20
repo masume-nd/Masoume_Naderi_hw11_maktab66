@@ -18,32 +18,38 @@ switcher.addEventListener("change", (e) => {
       body.classList.toggle("light", "dark");
       body.classList.toggle("dark", "light");
     
-});
+ });
 
 
 //Variables
 let LIST = [],id = 0;
 
-// get item from local storage
-//let data = localStorage.getItem("TODO")
-// check if data is not empty
+class Store{
+    static getToDoes() {
+       let todos;
+       if(localStorage.getItem("ToDo") === null){
+           todos = []
+       } else{
+           todos = JSON.parse(localStorage.getItem("ToDo")) 
+       }
+       return todos
+    }
 
-//     LIST = JSON.parse(data);
-//     id = LIST.length; // set id
-//     loadList(LIST); // load the list the user interface
+    static addToDo(toDo, id , done , trash , status) {
+      const todos =  Store.getToDoes();
+
+      todos.push({
+          name : toDo,
+          id : Date.now(),
+          done: false,
+          trash : false,
+          status : 1
+      })
+      localStorage.setItem("ToDo" , JSON.stringify(todos))
+    }
+}
 
 
-// //load items to the user's interface
-// function loadList(array) {
-//     array.forEach(function(item) {
-//         addToDo(item.name, item.id, item.done, item.trash , item.status)
-//     });
-// }
-
-// clear.addEventListener('click' ,()=>{
-//     localStorage.clear();
-//     location.reload();
-// })
 
 function addToDo(toDo, id , done ,trash , status) {
 
@@ -62,16 +68,15 @@ function addToDo(toDo, id , done ,trash , status) {
     const position = "beforeend"
 
     list.insertAdjacentHTML(position , item)
-
+    // Store.addToDo(toDo,id)
 }
 
 allTasks.addEventListener("click", (e) => {
 list.innerHTML = "";
-const tasks = JSON.parse(localStorage.getItem("TODO"));
-console.log(tasks)
+const tasks = Store.getToDoes();
 if (tasks) {
     tasks.forEach((task) => {
-    localStorage.setItem("TODO", JSON.stringify(LIST));    
+    localStorage.setItem("ToDo", JSON.stringify(LIST));    
     counter();
     });
 }
@@ -79,12 +84,12 @@ if (tasks) {
 
 completedTasks.addEventListener("click", (e) => {
 list.innerHTML = "";
-const tasks = localStorage.getItem("TODO");
+const tasks = Store.getToDoes();
 if (tasks) {
     tasks
-    .filter((item) => item.checked)
+    .filter((item) => item.done)
     .forEach((task) => {
-    localStorage.setItem("TODO", JSON.stringify(LIST.status==2));    
+    localStorage.setItem("ToDo", JSON.stringify(LIST.status==2));    
         counter();
     });
 }
@@ -92,40 +97,45 @@ if (tasks) {
 
 ActiveTasks.addEventListener("click", (e) => {
 list.innerHTML = "";
-const tasks = JSON.parse(localStorage.getItem("TODO"));
+const tasks = Store.getToDoes();
 if (tasks) {
     tasks
-    .filter((item) => !item.checked)
+    .filter((item) => !item.done)
     .forEach((task) => {
-    localStorage.setItem("TODO", JSON.stringify(LIST.status==1));  
+    localStorage.setItem("ToDo", JSON.stringify(tasks));  
         counter();
     });
 }
 });
   
+document.addEventListener("DOMContentLoaded" , displayToDo)
+
 
 document.addEventListener("keydown", function(event) {
     if(event.key == "Enter"){
         const task = input.value;
+        console.log(task)
         event.preventDefault();
 
         //if the input isn't empty
         if(task){
-            addToDo(task , id , false , false , 1);
-            LIST.push({
-                name : task,
-                id : id,
-                done : false,
-                trash : false,
-                status : 1
-            });
-            //add items to local storage (this code must be added where the list array apdated)
-           // localStorage.setItem("TODO", JSON.stringify(LIST));    
-            id++;
+            addToDo(task , Date.now() , false , false , 1);
+            Store.addToDo(task,id);
         }
     }
 }); 
 
+
+function displayToDo() {
+    const todos = Store.getToDoes();
+    todos.forEach((item)=>{
+        addToDo(item.name, item.id, item.done, item.trash , item.status)
+    });
+}
+function clearToDo(){
+    list.innerHTML = "";
+    localStorage.clear();
+}
 //complete to do
 
 function completeToDo(element) {
@@ -136,29 +146,49 @@ function completeToDo(element) {
     element.classList.toggle(class_icon_done);
     element.classList.toggle(class_icone_active);
     element.parentNode.querySelector(".text").classList.toggle(line_through);
+    
+    const curID = element.attributes.id.value;
+    const todos = Store.getToDoes();
+    todos.forEach((todo , index) =>{
+        if(+todo.id === +curID){
+            todos[index].done = todos[index].done? false: true;
+            todos[index].status = 2;
+        }
+    })
+  
 
-    LIST[element.id].done = LIST[element.id].done ? false : true;
-    LIST[element.id].status = 2;
 
 }
 
 function removeToDo(element) {
     element.parentNode.parentNode.removeChild(element.parentNode);
-    LIST[element.id].trash = true;
+   // LIST[element.id].trash = true;
+
+    const curID = element.attributes.id.value;
+    const todos = Store.getToDoes();
+
+    todos.forEach((todo , index) =>{
+        if(+todo.id === +curID){
+            todos.splice(index , 1);
+        }
+    })
+    localStorage.setItem("ToDo", JSON.stringify(todos));
+
 }
 
 list.addEventListener('click' , (event) => {
 
     const element = event.target;
+
     const elementJob = element.getAttribute("job");
      if(elementJob == "delete") {
-         removeToDo(element);
+        removeToDo(element);
     } else if(elementJob == "complete") {
-            completeToDo(element)
+        completeToDo(element);
     }
 
     //add items to local storage
-  //  localStorage.setItem("TODO", JSON.stringify(LIST));
+    localStorage.setItem("ToDo", JSON.stringify(LIST));
 });
 
 
@@ -171,7 +201,6 @@ const counter = () => {
   
     count.innerText = `${itemsCounter.length} ${counterString} left`;
   };
-
 
 
 

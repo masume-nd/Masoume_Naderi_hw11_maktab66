@@ -196,18 +196,23 @@ section{
 
 @media screen and (max-width:480px) {
   
-#tasks-input{
+#tasks-input , .task{
   width: 300px;  
 }
 .footer{
-  width: 320px;
+  width: 300px;
   position: relative;
 }
 
 .middleUl{
- 
   position: absolute;
   top: 100%;
+}
+.themeSwitch {
+  transform: translate(250px,-235px);
+}
+#clear{
+  transform: translate(280px,-300px);
 }
 
 }
@@ -216,7 +221,15 @@ section{
     background-image: url(./img/bg-mobile-light.jpg);
   }
   #tasks-input , h2{
-    transform: translateY(-300px);
+    transform: translateY(-320px);
     
   }
+  .themeSwitch {
+    transform: translate(250px,-330px);
+  }
+  #clear{
+    transform: translate(280px,-390px);
+  }
+  
+  
 }
