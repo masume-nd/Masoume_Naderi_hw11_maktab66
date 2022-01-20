@@ -72,40 +72,45 @@ function addToDo(toDo, id , done ,trash , status) {
 }
 
 allTasks.addEventListener("click", (e) => {
-list.innerHTML = "";
-const tasks = Store.getToDoes();
-if (tasks) {
-    tasks.forEach((task) => {
-    localStorage.setItem("ToDo", JSON.stringify(LIST));    
-    counter();
-    });
-}
+    list.innerHTML = "";
+    displayToDo()
+// list.innerHTML = "";
+// const tasks = Store.getToDoes();
+// if (tasks) {
+//     tasks.forEach((task) => {
+//     localStorage.setItem("ToDo", JSON.stringify(LIST));    
+//     counter();
+//     });
+// }
 });
 
 completedTasks.addEventListener("click", (e) => {
-list.innerHTML = "";
-const tasks = Store.getToDoes();
-if (tasks) {
-    tasks
-    .filter((item) => item.done)
-    .forEach((task) => {
-    localStorage.setItem("ToDo", JSON.stringify(LIST.status==2));    
-        counter();
-    });
-}
+    list.innerHTML = "";
+    const tasks = Store.getToDoes();
+    tasks.forEach((index) =>{
+        if(tasks[index].done){
+            displayToDo()
+        }
+    })
+    
+// if (tasks) {
+//     tasks
+//     .filter((item) => item.done)
+//     .forEach((task) => {
+//     localStorage.setItem("ToDo", JSON.stringify(LIST.status==2));    
+//         counter();
+//     });
+// }
 });
 
 ActiveTasks.addEventListener("click", (e) => {
 list.innerHTML = "";
 const tasks = Store.getToDoes();
-if (tasks) {
-    tasks
-    .filter((item) => !item.done)
-    .forEach((task) => {
-    localStorage.setItem("ToDo", JSON.stringify(tasks));  
-        counter();
-    });
-}
+tasks.forEach((index) =>{
+    if(!tasks[index].done){
+        displayToDo()
+    }
+})
 });
   
 document.addEventListener("DOMContentLoaded" , displayToDo)
@@ -114,7 +119,6 @@ document.addEventListener("DOMContentLoaded" , displayToDo)
 document.addEventListener("keydown", function(event) {
     if(event.key == "Enter"){
         const task = input.value;
-        console.log(task)
         event.preventDefault();
 
         //if the input isn't empty
