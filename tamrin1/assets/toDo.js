@@ -87,8 +87,8 @@ allTasks.addEventListener("click", (e) => {
 completedTasks.addEventListener("click", (e) => {
     list.innerHTML = "";
     const tasks = Store.getToDoes();
-    tasks.forEach((index) =>{
-        if(tasks[index].done){
+    tasks.forEach((item) =>{
+        if(item.done){
             displayToDo()
         }
     })
@@ -106,8 +106,9 @@ completedTasks.addEventListener("click", (e) => {
 ActiveTasks.addEventListener("click", (e) => {
 list.innerHTML = "";
 const tasks = Store.getToDoes();
-tasks.forEach((index) =>{
-    if(!tasks[index].done){
+tasks.forEach((item) =>{
+    console.log(item); 
+    if(!item.done){
         displayToDo()
     }
 })
@@ -143,6 +144,7 @@ function clearToDo(){
 //complete to do
 
 function completeToDo(element) {
+    console.log(element);
     const CHECK = "fa-check"
     const UNCHECK = "fa-circle-thin"
     element.classList.toggle(CHECK);
@@ -165,8 +167,8 @@ function completeToDo(element) {
 }
 
 function removeToDo(element) {
+    console.log(element);
     element.parentNode.parentNode.removeChild(element.parentNode);
-   // LIST[element.id].trash = true;
 
     const curID = element.attributes.id.value;
     const todos = Store.getToDoes();
@@ -174,6 +176,7 @@ function removeToDo(element) {
     todos.forEach((todo , index) =>{
         if(+todo.id === +curID){
             todos.splice(index , 1);
+            todos[index].trash = true;
         }
     })
     localStorage.setItem("ToDo", JSON.stringify(todos));
